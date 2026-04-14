@@ -1,264 +1,99 @@
-# 📄 AI Resume Analyzer & Job Matcher
+# ◈ NEXUS · Resume Intelligence Platform
 
-## 🚀 Overview
+> **Enterprise-grade AI-powered resume analyzer** with skill gap analysis,
+> ATS scoring, structured LLM feedback, and branded PDF export.
 
-AI Resume Analyzer is a **production-ready AI-powered application** that evaluates a candidate’s resume against a job description and provides:
-
-* 📊 Match Score
-* ✅ Skill Match Analysis
-* ❌ Missing Skills
-* 🤖 AI-driven Improvement Suggestions
-* 📥 Downloadable Report (PDF)
-
-The system combines **NLP, rule-based matching, and Large Language Models (LLMs)** to deliver intelligent and actionable feedback.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.35%2B-red?style=flat-square)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o-green?style=flat-square)
 
 ---
 
-## 🎯 Problem Statement
+## What It Does
 
-Job applicants often struggle to understand how well their resume aligns with a job description.
+Upload a resume PDF + paste a job description → NEXUS delivers:
 
-### Challenges:
-
-* Manual comparison is time-consuming
-* Important skills are often missed
-* Lack of structured feedback
-* No clear improvement suggestions
-
-👉 This project solves these problems using **AI-driven analysis and automation**.
-
----
-
-## 🧠 Solution
-
-The application analyzes both:
-
-* 📄 Resume (PDF input)
-* 📝 Job Description
-
-Then it:
-
-1. Extracts text from resume
-2. Identifies key skills using NLP
-3. Compares with job requirements
-4. Calculates a match score
-5. Uses an LLM to generate personalized feedback
+| Feature | Description |
+|---------|-------------|
+| **Skill Match Score** | % of JD-required skills found in the resume |
+| **ATS Score** | AI-estimated ATS compatibility (0–100) |
+| **Job Fit Level** | Strong / Moderate / Weak Fit classification |
+| **Category Breakdown** | Skills analyzed across 8 categories (AI, Cloud, Web, DB…) |
+| **Section Audit** | Detects presence of Experience, Education, Skills, Projects, etc. |
+| **Strengths & Weaknesses** | 4 strengths + 3 gaps identified by GPT |
+| **Improvement Suggestions** | 5 specific, actionable resume improvements |
+| **Bullet Rewrites** | 2+ before/after rewrites with stronger verbs & metrics |
+| **Final Recommendation** | Hiring recommendation with next steps |
+| **PDF Export** | Branded multi-section report downloadable as PDF |
 
 ---
 
-## 🏗️ Architecture
-
-Resume (PDF) → Text Extraction → Skill Extraction
-Job Description → Skill Extraction
-↓
-Matching Engine
-↓
-LLM Analysis
-↓
-Dashboard + PDF Report
-
----
-
-## ⚙️ Tech Stack
-
-### 🧠 Core AI
-
-* Python
-* NLP (Regex-based skill extraction)
-* LLM via OpenAI API
-
-### 📄 Document Processing
-
-* pdfplumber
-
-### 🖥️ Frontend
-
-* Streamlit
-
-### 📊 Backend Logic
-
-* Custom skill matcher
-* Similarity scoring
-
-### 📥 Report Generation
-
-* reportlab
-
-### 🔐 Environment Management
-
-* python-dotenv
-
----
-
-## 🔥 Key Features
-
-### ✅ Resume Parsing
-
-Extracts text from PDF resumes efficiently.
-
-### ✅ Skill Extraction
-
-Identifies relevant skills using keyword-based NLP.
-
-### ✅ Match Score
-
-Calculates alignment between resume and job description.
-
-### ✅ Skill Gap Analysis
-
-Highlights:
-
-* Matched skills
-* Missing skills
-
-### ✅ AI Feedback
-
-Uses LLM to provide:
-
-* Strengths
-* Weaknesses
-* Improvement suggestions
-* Final recommendation
-
-### ✅ PDF Report
-
-Download a structured analysis report.
-
-### ✅ Premium UI
-
-* Modern dashboard
-* Tab-based interface
-* Interactive components
-
----
-
-## 📂 Project Structure
+## Architecture
 
 ```
 resume-analyzer/
-│
-├── app.py
-├── utils/
-│   ├── parser.py
-│   ├── skills.py
-│   ├── matcher.py
-│   ├── llm_analyzer.py
-│   ├── pdf_generator.py
-│
-├── data/
+├── app.py                     # Premium Streamlit UI
 ├── requirements.txt
-├── README.md
+├── .env.example
+│
+├── config/
+│   └── settings.py            # Pydantic settings + .env loader
+│
+├── utils/
+│   ├── skills.py              # 300+ skills across 8 categories
+│   ├── parser.py              # PDF extractor (pdfplumber + pypdf fallback)
+│   ├── matcher.py             # Skill extractor + category-aware matcher
+│   ├── llm_analyzer.py        # GPT analysis → structured JSON (9 dimensions)
+│   └── pdf_generator.py       # Branded ReportLab PDF report
+│
+└── outputs/                   # Auto-saved PDF reports
 ```
 
 ---
 
-## ▶️ How to Run Locally
-
-### 1️⃣ Clone Repository
+## Setup
 
 ```bash
-git clone https://github.com/your-username/resume-analyzer.git
-cd resume-analyzer
-```
-
-### 2️⃣ Create Virtual Environment
-
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
-
-### 3️⃣ Install Dependencies
-
-```bash
+# 1. Install dependencies
 pip install -r requirements.txt
-```
 
-### 4️⃣ Add API Key
+# 2. Configure environment
+cp .env.example .env
+# Edit .env → add your OPENAI_API_KEY
 
-Create `.env` file:
-
-```env
-OPENAI_API_KEY=your_api_key_here
-```
-
-### 5️⃣ Run Application
-
-```bash
+# 3. Run
 streamlit run app.py
 ```
 
 ---
 
-## 🧪 Example Use Cases
+## Skills Database
 
-* Resume screening
-* Job application optimization
-* Skill gap analysis
-* Career guidance
+300+ skills organized across 8 categories:
 
----
-
-## ⚠️ Challenges & Solutions
-
-### 🔴 API Key Management
-
-* Problem: API key errors
-* Solution: Used environment variables via dotenv
+- **Programming Languages** — Python, Java, TypeScript, Go, Rust, Kotlin…
+- **Web & Frontend** — React, Vue, Next.js, Tailwind, GraphQL…
+- **Backend & Cloud** — Django, FastAPI, Docker, Kubernetes, AWS, Azure…
+- **Data & AI** — ML, DL, NLP, PyTorch, LangChain, Spark, Airflow…
+- **Databases** — PostgreSQL, MongoDB, Snowflake, Elasticsearch…
+- **Tools & Practices** — Git, Agile, CI/CD, TDD, Pytest…
+- **Soft Skills** — Leadership, Communication, Stakeholder Management…
+- **Domain & Business** — Product Management, Cybersecurity, Flutter…
 
 ---
 
-### 🔴 PDF Parsing Issues
+## UI Features
 
-* Problem: Some PDFs not readable
-* Solution: Used pdfplumber for better extraction
-
----
-
-### 🔴 Skill Matching Limitations
-
-* Problem: Exact keyword matching
-* Solution: Improved with LLM-based analysis
+- 🎨 Premium dark design — Fraunces serif + DM Sans + JetBrains Mono
+- 📊 4-stat dashboard (Match %, ATS, Skills, Experience)
+- 🏷️ Color-coded skill tags (teal = matched, rose = missing, sky = extra)
+- 📈 Per-category progress bars with matched/missing breakdown
+- ✏️ Before/after bullet rewrite cards
+- 📂 Session history in sidebar
+- ⬇️ One-click PDF generation and download
 
 ---
 
-### 🔴 UI Improvements
+## License
 
-* Problem: Basic UI
-* Solution: Built modern dashboard with Streamlit
-
----
-
-## 🚀 Future Improvements
-
-* 🔥 Semantic skill matching (embeddings)
-* 🔥 Resume rewriting using AI
-* 🔥 ATS keyword optimization
-* 🔥 Multi-language support
-* 🔥 Cloud deployment
-
----
-
-## 🏆 Key Learnings
-
-* NLP-based text processing
-* LLM integration in real applications
-* UI/UX design for AI products
-* End-to-end system development
-
----
-
-## 👨‍💻 Author
-
-**Ashutosh Suryawanshi**
-
-* GitHub: https://github.com/Ashusurya00
-* LinkedIn: https://linkedin.com/in/ashutosh-suryawanshi-26aa46378
-
----
-
-## ⭐ Support
-
-If you like this project, give it a ⭐ and connect with me!
-
----
+MIT © 2025 NEXUS Intelligence Platform

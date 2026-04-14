@@ -1,4 +1,0 @@
-
-pdfplumber
-PyPDF2
-pillow
